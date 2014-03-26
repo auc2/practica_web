@@ -1,4 +1,5 @@
-#from django.contrib.auth import User
+from django.contrib.auth.models import User
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
 
@@ -10,6 +11,8 @@ class Actor(models.Model):
 	sex = models.TextField(max_length=10)
 	born = models.DateTimeField()
 	bibliography = models.TextField(max_length=200)
+	def __unicode__(self):
+		return self.name
 
 
 
@@ -18,6 +21,9 @@ class Director(models.Model):
 	sex = models.TextField(max_length=10)
 	born = models.DateTimeField()
 	bibliography = models.TextField(max_length=200)
+	def __unicode__(self):
+		return self.name
+
 	
 	
 	
@@ -25,6 +31,9 @@ class Producer(models.Model):
 	name_entity = models.TextField(max_length=40)
 	foundation_year = models.DateTimeField()
 	num_members = models.IntegerField()
+	def __unicode__(self):
+		return self.name_entity
+
 
 
 
@@ -36,13 +45,15 @@ class Movie(models.Model):
 	cast = models.ManyToManyField(Actor)
 	argument = models.TextField(max_length=200)
 	genere = models.TextField(max_length=20)
-	#rates = models.ForeignKey(Rate)
+	def __unicode__(self):
+		return self.title
 
 
 
-
-#class Rate(models.Model):
-#	user = models.ForeignKey(User)
-#	movie = models.ForeignKey(Movie)	
-#	punctuation = models.IntegerField()
-
+class Review(models.Model):
+	note = models.FloatField(validators = [MinValueValidator(0.0), MaxValueValidator(10)])
+	commentary = models.TextField(max_length=200)
+	movie =  models.ForeignKey(Movie)
+	user =  models.ForeignKey(User)
+	def __unicode__(self):
+		return self.commentary
