@@ -8,4 +8,4 @@ from mymoviesapp.models import Movie
 admin.site.register(Actor)
 admin.site.register(Director)
 admin.site.register(Producer)
-admin.site.register(Movie)
+admin.site.Movie(Movie)
