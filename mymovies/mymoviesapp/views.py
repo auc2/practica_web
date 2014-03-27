@@ -29,6 +29,7 @@ def mainpage(request):
 		'titlehead': 'MyMovies',
 		'pagetitle': 'Welcome to MyMovies!',
 		'contentbody': 'In this page you can collect all your best films in this library'
+		#'user': request.user
 		})
 
 	output = template.render(variables)

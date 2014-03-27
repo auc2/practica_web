@@ -14,7 +14,8 @@ urlpatterns = patterns('',
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
 	url(r'^$', mainpage, name='home'),
-	#url(r'^admin/(\w+)/$', userpage),
+	#url(r'^user/(\w+)/$', userpage), # problemon
+    url(r'^login/$','django.contrib.auth.views.login'),
 	
 	url(r'^movieslist/$', movieslist),
 	url(r'^movieslist/(?P<idn>\d+)/$', moviesinfo),
