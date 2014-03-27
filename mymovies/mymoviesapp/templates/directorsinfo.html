@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<title>{{titlehead}}</title>
+<style type="text/css" rel="stylesheet">
+  {% include 'default.css' %}
+</style>
+</head>
+<body>			<div id="logo">
+				<h1><a href="http://127.0.0.1:8000/">MyMovies</a></h1>
+			</div>
+			<div id="options">
+				<ul>
+					<li class="active"><a href="http://127.0.0.1:8000/">Homepage</a></li>
+					<li><a href="/movieslist">Movies</a></li>
+					<li><a href="/actorslist">Actors</a></li>
+					<li><a href="/directorslist">Directors</a></li>
+				</ul>
+			</div>
+				<h1>{{ director.name }}</h1>
+			
+					<p><b>Name:</b> {{director.sex}}</p>
+					<p><b>Name:</b> {{director.born}}</p>
+					<p><b>Name:</b> {{director.bibliography}}</p>
+			
+</body>
+<html>

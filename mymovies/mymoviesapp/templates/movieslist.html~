@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<title>{{titlehead}}</title>
+<style type="text/css" rel="stylesheet">
+  {% include 'default.css' %}
+</style>
+</head>
+<body>
+			<div id="logo">
+				<h1><a href="http://127.0.0.1:8000/">{{pagetitle}}</a></h1>
+			</div>
+			<div id="options">
+				<ul>
+					<li class="active"><a href="http://127.0.0.1:8000/">Homepage</a></li>
+					<li><a href="/movieslist">Movies</a></li>
+					<li><a href="/actorslist">Actors</a></li>
+					<li><a href="/directorslist">Directors</a></li>
+				</ul>
+			</div>
+	
+				<h2 class="title">{{pagetitle}}</h2><br/>
+				<ol>
+				{% for pelicula in pelicules_list %}
+				<li>
+					<a href="/movieslist/{{pelicula.id}}">{{pelicula.title}}</a>
+				</li>
+				{% endfor %}
+				</ol>
+				
+</body>
+<html>
