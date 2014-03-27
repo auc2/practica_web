@@ -7,14 +7,10 @@
   {% include 'default.css' %}
 </style>
 </head>
-<body>
-<div id="wrapper">
-	<div id="header-wrapper">
-		<div id="header" class="container">
-			<div id="logo">
-				<h1><a href="http://127.0.0.1:8000/">Movies</a></h1>
+<body>			<div id="logo">
+				<h1><a href="http://127.0.0.1:8000/">{{pagetitle}}</a></h1>
 			</div>
-			<div id="menu">
+			<div id="options">
 				<ul>
 					<li class="active"><a href="http://127.0.0.1:8000/">Homepage</a></li>
 					<li><a href="/movieslist">Movies</a></li>
@@ -22,15 +18,10 @@
 					<li><a href="/directorslist">Directors</a></li>
 				</ul>
 			</div>
-		</div>
-	</div>
-	<div id="page" class="container">
-		<div id="content">
-			<div id="box1">
 				<h1>{{ pelicula.title }}</h1>
 			
 					<p><b>Argument:</b> {{pelicula.argument}}</p>
-					<!--<p><b>Director:</b> <a href="/directors/{{pelicula.Director.id}}">{{pelicula.director}}</a></p>-->
+					<p><b>Director:</b> <a href="/directorslist/{{pelicula.Director.id}}">{{pelicula.director}}</a></p>
 					<p><b>Actors:</b></p>
 					<ol>
 					{% for actor in actors_list %}
@@ -41,9 +32,5 @@
 					</ol>
 
 				
-			</div>
-		</div>
-	</div>
-</div>
 </body>
 <html>

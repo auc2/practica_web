@@ -25,17 +25,19 @@
             </ul>
         </div>
         </div>
+
 		<div id="content">
+
 				<h2 class="title">{{pagetitle}}</h2><br/>
 				<ol>
-				{% for director in directors_list %}
+				{% for review in reviews_list %}
 				<li>
-					<a href="/directorslist/{{director.id}}">{{director.name}}</a>
+					<a href="/reviewslist/{{review.id}}">{{review.movie}}</a>
 				</li>
 				{% endfor %}
 				</ol>
-        </div>
-        </div>
+		 </div>
+ 	  </div>
 				
 </body>
 <html>

@@ -9,7 +9,7 @@
 </head>
 <body>
 			<div id="logo">
-				<h1><a href="http://127.0.0.1:8000/">{{pagetitle}}</a></h1>
+				<h1><a href="http://127.0.0.1:8000/">MyMovies</a></h1>
 			</div>
 			<div id="options">
 				<ul>

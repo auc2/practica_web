@@ -87,7 +87,7 @@ def directorslist(request):
 	template = get_template('directorslist.html')
 	variables = Context({
 				'titlehead': 'DirectorPage',
-				'pagetitle': 'The directors of yours favorites movies',
+				'pagetitle': 'Directors',
 				'directors_list' : Director.objects.all()
 		})
 	output = template.render(variables)
@@ -103,9 +103,53 @@ def directorsinfo(request, idn):
 			'directorsinfo.html',
 			{
 				'director': direct,
+			})		
+
+def producerslist(request):
+	template = get_template('producerslist.html')
+	variables = Context({
+				'titlehead': 'ProducerPage',
+				'pagetitle': 'Producers',
+				'producers_list' : Producer.objects.all()
+		})
+	output = template.render(variables)
+	return HttpResponse(output)
+
+
+def producersinfo(request, idn):
+	try:
+		direct = Producer.objects.get(id = idn)
+	except Producer.DoesNotExist:
+		raise Http404
+	return render_to_response(
+			'producersinfo.html',
+			{
+				'producer': direct,
 			})			
+	
+
+def reviewslist(request):
+	template = get_template('reviewslist.html')
+	variables = Context({
+				'titlehead': 'ReviewsPage',
+				'pagetitle': 'Reviews',
+				'reviews_list' : Review.objects.all()
+		})
+	output = template.render(variables)
+	return HttpResponse(output)
 
 
+def reviewsinfo(request, idn):
+	try:
+		direct = Review.objects.get(id = idn)
+	except Review.DoesNotExist:
+		raise Http404
+	return render_to_response(
+			'reviewsinfo.html',
+			{
+				'review': direct,
+			})			
+	
 
 
 

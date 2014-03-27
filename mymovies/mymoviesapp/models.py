@@ -44,7 +44,8 @@ class Movie(models.Model):
 	producer = models.ForeignKey(Producer)
 	cast = models.ManyToManyField(Actor)
 	argument = models.TextField(max_length=200)
-	genere = models.TextField(max_length=20)
+	tipus = (('comedy','comedy'),('action','action'),('fantasy','fantasy'),('thriller','thriller'),('drama','drama'),('terror','terror'),('fantasy','fantasy'),('thriller','thriller'))
+	genere = models.CharField(max_length=50,choices=tipus,unique=True)
 	def __unicode__(self):
 		return self.title
 
@@ -56,4 +57,6 @@ class Review(models.Model):
 	movie =  models.ForeignKey(Movie)
 	user =  models.ForeignKey(User)
 	def __unicode__(self):
-		return self.commentary
+		return self.movie.title
+
+

@@ -25,6 +25,13 @@ urlpatterns = patterns('',
 	url(r'^directorslist/$', directorslist),
 	url(r'^directorslist/(?P<idn>\d+)/$', directorsinfo),
 
+	url(r'^producerslist/$', producerslist),
+	url(r'^producerslist/(?P<idn>\d+)/$', producersinfo),
+
+	url(r'^reviewslist/$', reviewslist),
+	url(r'^reviewslist/(?P<idn>\d+)/$', reviewsinfo),
+
+
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
 )
