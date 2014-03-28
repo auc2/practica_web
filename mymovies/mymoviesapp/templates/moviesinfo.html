@@ -27,15 +27,18 @@
         </div>
 		<div id="content">
 				<h1>{{ pelicula.title }}</h1>
-			
-					<p><b>Argument:</b> {{pelicula.argument}}</p>
-					<p><b>Director:</b> <a href="/directorslist/{{pelicula.director.id}}">{{pelicula.director}}</a></p>
-					<p><b>Actors:</b></p>
+			<br>
+					<p><b>Release: </b> {{pelicula.release}}</p>				
+					<p><b>Director: </b> <a href="/directorslist/{{pelicula.director.id}}">{{pelicula.director}}</a></p
+					<p><b>Producer: </b> <a href="/producerslist/{{pelicula.producer.id}}">{{pelicula.producer}}</a></p>
+					<p><b>Argument: </b> {{pelicula.argument}}</p>		
+					<p><b>Genere: </b> {{pelicula.genere}}</p>	
+					<p><b>Cast: </b></p>
 					<ol>
 					{% for actor in actors_list %}
 					<li>
 					<a href="/actorslist/{{actor.id}}">{{actor.name}}</a>
-					</li>
+					</li>			
 					{% endfor %}
 					</ol>
 
