@@ -35,6 +35,19 @@ def mainpage(request):
 	output = template.render(variables)
 	return HttpResponse(output)
 
+def mymovieslist(request):
+	#Obtener las peliculas del usuario.
+	template = get_template('mymovieslist.html')
+	variables = Context({
+				'titlehead': 'MoviesPage',
+				'pagetitle': 'Your Movies',
+				'pelicules_list' : Movie.objects.all(),
+				'user': request.user
+
+		})
+	output = template.render(variables)
+	return HttpResponse(output)
+
 
 def movieslist(request):
 	template = get_template('movieslist.html')

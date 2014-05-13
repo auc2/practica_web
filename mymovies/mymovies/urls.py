@@ -20,6 +20,9 @@ urlpatterns = patterns('',
 	url(r'^movieslist/$', movieslist),
 	url(r'^movieslist/(?P<idn>\d+)/$', moviesinfo),
 
+    url(r'^mymovieslist/$', mymovieslist), #Una vez registrado te muestra tus peliculas 
+ 
+
 	url(r'^actorslist/$', actorslist),
 	url(r'^actorslist/(?P<idn>\d+)/$', actorsinfo),
 
