@@ -9,6 +9,57 @@ from django.shortcuts import render_to_response
 
 from mymoviesapp.models import *
 
+from forms import MovieForm
+
+
+from django.contrib.auth.decorators import login_required
+from django.core import urlresolvers
+from django.core.exceptions import PermissionDenied
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404
+from django.utils.decorators import method_decorator
+from django.views.generic import DetailView
+from django.views.generic.edit import CreateView, UpdateView
+
+class LoginRequiredMixin(object):
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(LoginRequiredMixin, self).dispatch(*args, **kwargs)
+
+class CheckIsOwnerMixin(object):
+    def get_object(self, *args, **kwargs):
+        obj = super(CheckIsOwnerMixin, self).get_object(*args, **kwargs)
+        if not obj.user == self.request.user:
+            raise PermissionDenied
+        return obj
+
+
+
+class MovieCreate(LoginRequiredMixin, CreateView):
+	model = Movie
+	template_name = 'movie_form.html' #PENDENT DE FER EL FORM.HTML
+	form_class = MovieForm
+
+	def form_valid(self, form):
+		form.instance.user = self.request.user
+		return super(MovieCreate, self).form_valid(form)
+
+
+
+def movieslist(request):
+	template = get_template('movieslist.html')
+	variables = Context({
+				'titlehead': 'MoviesPage',
+				'pagetitle': 'Your Movies',
+				'pelicules_list' : Movie.objects.all()
+		})
+	output = template.render(variables)
+	return HttpResponse(output)
+
+
+
+
+ #************************************************
 def userpage(request, username):
 	try:
 		user = User.objects.get(username=username)
@@ -71,6 +122,7 @@ def moviesinfo(request, idn):
 				'pelicula': movi,
 				'actors':movi.cast.all()
 			})			
+
 
 
 def actorslist(request):

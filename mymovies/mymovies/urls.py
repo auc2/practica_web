@@ -36,6 +36,12 @@ urlpatterns = patterns('',
 	url(r'^reviewslist/(?P<idn>\d+)/$', reviewsinfo),
 
 
+	# Create a movie: 
+    url(r'^mymovies/create/$',
+        MovieCreate.as_view(),
+        name='movie_create'),
+
+
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
 )

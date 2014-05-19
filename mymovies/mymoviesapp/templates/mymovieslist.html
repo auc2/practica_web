@@ -31,6 +31,7 @@
 
   {% if user.username %}
       
+      <!--MOSTRAR SUS PELICULAS PERSONALES-->
 				<h2 class="title">{{pagetitle}}</h2><br/>
 				<ol>
 				{% for pelicula in pelicules_list %}
@@ -39,6 +40,15 @@
 				</li>
 				{% endfor %}
 				</ol>
+
+				<!-- + BUTTON -->
+				
+			    {% if user %}
+			        (<a href="/mymovies/create">Add Movie</a>)
+			    {% endif %}
+
+
+
       {% else %}
         <h2>Not logged user</h2>
         <p>You must <a href="/login/">sign in</a> to use this site</p>

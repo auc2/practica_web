@@ -4,6 +4,10 @@ from django.db import models
 
 
 
+def get_default_user():
+    return User.objects.get(pk=1)
+
+
 # Create your models here.
 
 class Actor(models.Model):
@@ -11,6 +15,7 @@ class Actor(models.Model):
 	sex = models.TextField(max_length=10)
 	born = models.DateTimeField()
 	bibliography = models.TextField(max_length=200)
+
 	def __unicode__(self):
 		return self.name
 
@@ -21,6 +26,7 @@ class Director(models.Model):
 	sex = models.TextField(max_length=10)
 	born = models.DateTimeField()
 	bibliography = models.TextField(max_length=200)
+
 	def __unicode__(self):
 		return self.name
 
@@ -31,6 +37,7 @@ class Producer(models.Model):
 	name_entity = models.TextField(max_length=40)
 	foundation_year = models.DateTimeField()
 	num_members = models.IntegerField()
+	
 	def __unicode__(self):
 		return self.name_entity
 
@@ -46,6 +53,8 @@ class Movie(models.Model):
 	argument = models.TextField(max_length=200)
 	tipus = (('comedy','comedy'),('action','action'),('fantasy','fantasy'),('thriller','thriller'),('drama','drama'),('terror','terror'),('fantasy','fantasy'),('thriller','thriller'))
 	genere = models.CharField(max_length=50,choices=tipus,unique=True)
+	#user = models.ForeignKey(User, default=get_default_user) # POSSIBLE ERROR
+
 	def __unicode__(self):
 		return self.title
 
@@ -55,7 +64,8 @@ class Review(models.Model):
 	note = models.FloatField(validators = [MinValueValidator(0.0), MaxValueValidator(10)])
 	commentary = models.TextField(max_length=200)
 	movie =  models.ForeignKey(Movie)
-	user =  models.ForeignKey(User)
+	user = models.ForeignKey(User, default=get_default_user)
+
 	def __unicode__(self):
 		return self.movie.title
 
