@@ -15,7 +15,8 @@ urlpatterns = patterns('',
 
 	url(r'^$', mainpage, name='home'),
 	#url(r'^user/(\w+)/$', userpage), # problemon
-    url(r'^login/$','django.contrib.auth.views.login'),
+   	url(r'^login/$','django.contrib.auth.views.login'),
+	url(r'^logout/$','django.contrib.auth.views.logout'),
 	
 	url(r'^movieslist/$', movieslist),
 	url(r'^movieslist/(?P<idn>\d+)/$', moviesinfo),
@@ -37,9 +38,24 @@ urlpatterns = patterns('',
 
 
 	# Create a movie: 
-    url(r'^mymovies/create/$',
+    	url(r'^mymovies/create/$',
         MovieCreate.as_view(),
         name='movie_create'),
+
+
+	# Create an actor: 
+    	url(r'^actor/create/$',
+        ActorCreate.as_view(),
+        name='actor_create'),
+ 
+
+	# Create an actor succesfull
+	url(r'^movie_detail/$', movie_detail_view, name='movie_detail'),
+
+	# Create an actor succesfull
+	url(r'^actorslist/(?P<idn>\d+)/$', actorsinfo, name='actor_detail'), #repetida a dalt!! sols falte afegir name
+	##url(r'^actor_detail/$', actor_detail_view, name='actor_detail'),
+	
 
 
     # Uncomment the next line to enable the admin:

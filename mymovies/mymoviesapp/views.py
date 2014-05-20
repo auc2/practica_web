@@ -9,7 +9,7 @@ from django.shortcuts import render_to_response
 
 from mymoviesapp.models import *
 
-from forms import MovieForm
+from forms import *
 
 
 from django.contrib.auth.decorators import login_required
@@ -37,7 +37,7 @@ class CheckIsOwnerMixin(object):
 
 class MovieCreate(LoginRequiredMixin, CreateView):
 	model = Movie
-	template_name = 'movie_form.html' #PENDENT DE FER EL FORM.HTML
+	template_name = 'form.html' #Formulario para rellenar los campos de movie
 	form_class = MovieForm
 
 	def form_valid(self, form):
@@ -45,18 +45,47 @@ class MovieCreate(LoginRequiredMixin, CreateView):
 		return super(MovieCreate, self).form_valid(form)
 
 
+#class ActorCreate(LoginRequiredMixin, CreateView):
+class ActorCreate(CreateView):
+	model = Actor
+	template_name = 'form.html' #Formulario para rellenar los campos de actor
+	form_class = ActorForm
 
-def movieslist(request):
-	template = get_template('movieslist.html')
+	def form_valid(self, form):
+		form.instance.user = self.request.user
+		return super(ActorCreate, self).form_valid(form)
+
+
+def movie_detail_view(request):
+	template = get_template('movie_detail.html')
+
 	variables = Context({
 				'titlehead': 'MoviesPage',
 				'pagetitle': 'Your Movies',
-				'pelicules_list' : Movie.objects.all()
+				'pelicules_list' : Movie.objects.all(),
+				'user': request.user
 		})
+
 	output = template.render(variables)
 	return HttpResponse(output)
 
 
+
+def actor_detail_view(request):
+
+
+	template = get_template('actor_detail.html')
+
+	variables = Context({
+		'titlehead': 'ActorsPage',
+		'actors_list' : Actor.objects.all()
+
+	})
+
+	#return general(request, template, variables)
+	output = template.render(variables)
+	return HttpResponse(output)
+ 
 
 
  #************************************************

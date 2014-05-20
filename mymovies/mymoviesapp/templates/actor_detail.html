@@ -1,3 +1,4 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -13,7 +14,7 @@
         	<h1>My<span class="lightblue">Movies</span></h1>
             <h2>The library of your favorite movies</h2>
         </div>   
-
+        
         <div id="menu">
         	<ul>
            			<li class="active"><a href="http://127.0.0.1:8000/">Homepage</a></li>
@@ -25,10 +26,11 @@
             </ul>
         </div>
         </div>
-		<div id="content">
-
-
-				<h2 class="title">{{pagetitle}}</h2><br/>
+				<div id="content">
+	<h2>Congratulations!!! </h2>
+	<br>
+	<p><b>Actor added correctly in to the system</b></p>
+	<br>
 				<ol>
 				{% for actor in actors_list %}
 				<li>
@@ -36,17 +38,12 @@
 				</li>
 				{% endfor %}
 				</ol>
-				<br>
-				<p><b>Do you want add a new actor?</b></p>
+
+				
 				(<a href="/actor/create">Add Actor</a>)
-			
-
-
-
-
-
         </div>
         </div>
 	
 </body>
 <html>
+

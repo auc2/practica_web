@@ -13,7 +13,7 @@
         	<h1>My<span class="lightblue">Movies</span></h1>
             <h2>The library of your favorite movies</h2>
         </div>   
-
+        
         <div id="menu">
         	<ul>
            			<li class="active"><a href="http://127.0.0.1:8000/">Homepage</a></li>
@@ -26,27 +26,22 @@
         </div>
         </div>
 		<div id="content">
+	<h2>Congratulations!!! </h2>
+	<br>
+	<p><b>Movie added correctly in to the system</b></p>
+	<br>
 
 
 				<h2 class="title">{{pagetitle}}</h2><br/>
 				<ol>
-				{% for actor in actors_list %}
+				{% for pelicula in pelicules_list %}
 				<li>
-					<a href="/actorslist/{{actor.id}}">{{actor.name}}</a>
+					<a href="/movieslist/{{pelicula.id}}">{{pelicula.title}}</a>
 				</li>
 				{% endfor %}
 				</ol>
-				<br>
-				<p><b>Do you want add a new actor?</b></p>
-				(<a href="/actor/create">Add Actor</a>)
-			
-
-
-
-
-
-        </div>
-        </div>
-	
+		 </div>
+ 	  </div>
+				
 </body>
 <html>
