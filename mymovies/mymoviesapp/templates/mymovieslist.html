@@ -34,14 +34,17 @@
       <!--MOSTRAR SUS PELICULAS PERSONALES-->
 				<h2 class="title">{{pagetitle}}</h2><br/>
 				<ol>
-				{% for pelicula in pelicules_list %}
+			{% for pelicula in pelicules_list %}
+				{% if user.id == pelicula.user.id %}
 				<li>
-					<a href="/movieslist/{{pelicula.id}}">{{pelicula.title}}</a>
+					<a href="/movieslist/{{pelicula.id}}"><b>{{pelicula.title}}</b></a>
 				</li>
-				{% endfor %}
+				<a href="/mymovies/{{pelicula.id}}/delete"><button type="button">Delete Movie</button></a>
+				<a href="/mymovies/{{pelicula.id}}/edit"><button type="button">Edit Movie</button></a>
+				<br><br>
+				{% endif %}
+			{% endfor %}
 				</ol>
-
-			    <br>
 			     <p><b>Before you add a new movie, you have to add a new director, producer and the actors.</p>
 			    {% if user %}
 			        (<a href="/mymovies/create">Add Movie</a>)

@@ -49,13 +49,20 @@ urlpatterns = patterns('',
         name='actor_create'),
  
 
-	# Create an actor succesfull
-	url(r'^movie_detail/$', movie_detail_view, name='movie_detail'),
+	# succesfull Create an movie 
+	url(r'^movieslist/(?P<idn>\d+)/$', movie_detail_view, name='movie_detail'), #equivalent a actorsinfo
 
-	# Create an actor succesfull
-	url(r'^actorslist/(?P<idn>\d+)/$', actorsinfo, name='actor_detail'), #repetida a dalt!! sols falte afegir name
+	# succesfull Create an actor
+	url(r'^actorslist/(?P<idn>\d+)/$', actor_detail_view, name='actor_detail'), #TEMPORAL repetida a dalt!! sols falte afegir name
 	##url(r'^actor_detail/$', actor_detail_view, name='actor_detail'),
 	
+
+	# Delete a Movie
+	url(r'^mymovies/(?P<idn>\d+)/delete/$', Movie_Delete.as_view(), name='movie_delete'),
+
+
+	# Edit a Movie
+
 
 
     # Uncomment the next line to enable the admin:

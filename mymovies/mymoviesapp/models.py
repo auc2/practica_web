@@ -60,17 +60,16 @@ class Movie(models.Model):
         ('fantasy','fantasy'),('thriller','thriller'),('Aventura','Aventura'),('ScienceFiction','ScienceFiction'),
 	('Western','Western'),('Neo-noir','Neo-noir'))
 	genere = models.CharField(max_length=50,choices=tipus,unique=True)
-	user = models.ForeignKey(User, default=get_default_user) # POSSIBLE ERROR
+	#user = models.ForeignKey(User, default=get_default_user) # POSSIBLE ERROR
+	user = models.ForeignKey(User)
 
 	def __unicode__(self):
 		return self.title
 
 	def get_absolute_url(self):
-		return reverse('movie_detail')
+		return reverse('movie_detail', kwargs={'idn': self.pk})
 
 		#return reverse('movie_detail', kwargs={'pk': self.pk})
-
-
 
 class Review(models.Model):
 	note = models.FloatField(validators = [MinValueValidator(0.0), MaxValueValidator(10)])

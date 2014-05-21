@@ -19,7 +19,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views.generic import DetailView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 class LoginRequiredMixin(object):
     @method_decorator(login_required)
@@ -57,6 +57,7 @@ class ActorCreate(CreateView):
 
 
 def movie_detail_view(request):
+	
 	template = get_template('movie_detail.html')
 
 	variables = Context({
@@ -73,7 +74,6 @@ def movie_detail_view(request):
 
 def actor_detail_view(request):
 
-
 	template = get_template('actor_detail.html')
 
 	variables = Context({
@@ -86,6 +86,14 @@ def actor_detail_view(request):
 	output = template.render(variables)
 	return HttpResponse(output)
  
+
+
+class Movie_Delete(LoginRequiredMixin, DeleteView):
+	model = Movie
+	template_name = 'delete_form.html' #Formulario para rellenar los campos de movie
+	success_url = '/movieslist' #Pagina elemento borrado correctamente
+#afegir variable -->SEGUR K VOLS ELIMINAR AQUESTA PELICULA?
+
 
 
  #************************************************
