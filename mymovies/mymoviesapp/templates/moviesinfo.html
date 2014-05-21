@@ -1,31 +1,7 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<style type="text/css" rel="stylesheet">
-  {% include 'default.css' %}
-</style>
-<title>MyMovies</title>
-</head>
+{% extends "mainpage.html"%}
 
-<body>
-<div id="container">
-		<div id="mainpic">
-        	<h1>My<span class="lightblue">Movies</span></h1>
-            <h2>The library of your favorite movies</h2>
-        </div>   
-        
-        <div id="menu">
-        	<ul>
-           			<li class="active"><a href="http://127.0.0.1:8000/">Homepage</a></li>
-					<li><a href="/movieslist">Movies</a></li>
-					<li><a href="/actorslist">Actors</a></li>
-					<li><a href="/directorslist">Directors</a></li>
-					<li><a href="/producerslist">Producers</a></li>
-					<li><a href="/reviewslist">Reviews</a></li>
-            </ul>
-        </div>
-        </div>
-		<div id="content">
+{% block content %}
+			
 				<h1>{{ pelicula.title }}</h1>
 			<br>
 					<p><b>Release: </b> {{pelicula.release}}</p>				
@@ -42,7 +18,5 @@
 					{% endfor %}
 					</ol>
 
-        </div>
-        </div>
-</body>
-<html>
+
+{% endblock %}

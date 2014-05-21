@@ -1,0 +1,16 @@
+<html>
+  <head>
+    <title>{{ titlehead}}</title>
+  </head>
+  <body>
+    <h1>{{ pagetitle }}</h1>
+    {% if user.username %}
+    <p> hola {{user.username}}</p>
+    <p>Click here to redirect to your user page: <a href="/userpage">My account</a></p>
+    {% else %}
+    <p>{{ contentbody }}</p>
+    <p><a href="/login/">Sign in</a> is required</p>
+    {% endif %}
+  </body>
+</html>
+

@@ -1,13 +1,14 @@
 {% extends "mainpage.html"%}
 
 {% block content %}
+
 				<h2 class="title">{{pagetitle}}</h2><br/>
 				<ol>
-				{% for director in directors_list %}
+				{% for movie in movieslist %}
 				<li>
-					<a href="/directorslist/{{director.id}}">{{director.name}}</a>
+					<a href="/movieslist/{{movie.id}}">{{movie.title}}</a>
 				</li>
 				{% endfor %}
 				</ol>
-
+		       	    
 {% endblock %}
