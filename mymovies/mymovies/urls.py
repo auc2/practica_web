@@ -62,10 +62,18 @@ urlpatterns = patterns('',
 	url(r'^mymovies/(?P<pk>\d+)/delete/$', Movie_Delete.as_view(), name='movie_delete'),
 
 
+	# Delete an Actor
+	url(r'^actors/(?P<pk>\d+)/delete/$', Actor_Delete.as_view(), name='actor_delete'),
+
+
+
 	# Edit a Movie
 	url(r'^mymovies/(?P<pk>\d+)/edit/$', UpdateView.as_view(model = Movie, template_name = 'edit_form.html',
 	form_class = MovieForm), name='movie_edit'),
 
+	# Edit an Actor
+	url(r'^actors/(?P<pk>\d+)/edit/$', UpdateView.as_view(model = Actor, template_name = 'edit_form.html',
+	form_class = ActorForm), name='actor_edit'),
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),

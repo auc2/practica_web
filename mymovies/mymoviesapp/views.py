@@ -78,7 +78,8 @@ def actor_detail_view(request):
 
 	variables = Context({
 		'titlehead': 'ActorsPage',
-		'actors_list' : Actor.objects.all()
+		'actors_list' : Actor.objects.all(),
+		'user': request.user
 
 	})
 
@@ -89,11 +90,17 @@ def actor_detail_view(request):
 
 
 class Movie_Delete(LoginRequiredMixin, DeleteView):
-
 #class Movie_Delete(DeleteView):
 	model = Movie
 	template_name = 'delete_form.html' #Formulario para rellenar los campos de movie
 	success_url = '/movieslist' #Pagina elemento borrado correctamente
+
+
+
+class Actor_Delete(LoginRequiredMixin, DeleteView):
+	model = Actor
+	template_name = 'delete_form.html'
+	success_url = '/actorslist' 
 
 
  #************************************************
@@ -167,10 +174,12 @@ def actorslist(request):
 	variables = Context({
 				'titlehead': 'ActorsPage',
 				'pagetitle': 'The stars of yours favorites movies',
-				'actors_list' : Actor.objects.all()
+				'actors_list' : Actor.objects.all(),
+				'user': request.user
 		})
 	output = template.render(variables)
 	return HttpResponse(output)
+
 
 
 def actorsinfo(request, idn):

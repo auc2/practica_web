@@ -16,6 +16,7 @@ class Actor(models.Model):
 	sex = models.CharField(max_length=10)
 	born = models.DateTimeField()
 	bibliography = models.TextField(max_length=200)
+	user = models.ForeignKey(User)
 
 	def __unicode__(self):
 		return self.name
