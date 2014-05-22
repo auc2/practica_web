@@ -27,8 +27,10 @@
 
           </ul>
         </div>
-</div>
+
+
 <div id="content">
+<hr align="right" noshade="noshade" size="2" width="80%"/>
 {% block content %}
       {% if user.username %}
       	<h2>Welcome to MyMovies {{user.username}}!</h2>

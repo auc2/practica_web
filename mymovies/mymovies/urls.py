@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
 from mymoviesapp.views import *
+from django.views.generic import UpdateView
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -62,7 +63,8 @@ urlpatterns = patterns('',
 
 
 	# Edit a Movie
-
+	url(r'^mymovies/(?P<pk>\d+)/edit/$', UpdateView.as_view(model = Movie, template_name = 'edit_form.html',
+	form_class = MovieForm), name='movie_edit'),
 
 
     # Uncomment the next line to enable the admin:

@@ -4,8 +4,10 @@
 
   {% if user.username %}
       
-      <!--MOSTRAR SUS PELICULAS PERSONALES-->
 				<h2 class="title">{{pagetitle}}</h2><br/>
+
+				<p>Here you can add your favorite movies in your collection</p>
+				<br>
 				<ol>
 			{% for pelicula in pelicules_list %}
 				{% if user.id == pelicula.user.id %}
@@ -19,8 +21,9 @@
 			{% endfor %}
 				</ol>
 			     <p><b>Before you add a new movie, you have to add a new director, producer and the actors.</p>
+				<br>
 			    {% if user %}
-			        (<a href="/mymovies/create">Add Movie</a>)
+			        <a href="/mymovies/create"><button type="button">Add Movie</button></a>
 			    {% endif %}
 
 

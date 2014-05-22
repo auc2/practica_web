@@ -2,6 +2,8 @@
 
 {% block content %}
 				<h2 class="title">{{pagetitle}}</h2><br/>
+				<p>Here you can add actors for the web</p>
+				<br>
 				<ol>
 				{% for actor in actors_list %}
 				<li>
@@ -11,6 +13,7 @@
 				</ol>
 				<br>
 				<p><b>Do you want add a new actor?</b></p>
-				(<a href="/actor/create">Add Actor</a>)
+				<br>
+				<button type="button"><a href="/actor/create">Add Actor</a></button>
 
 {% endblock %}
