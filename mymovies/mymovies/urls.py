@@ -58,7 +58,7 @@ urlpatterns = patterns('',
 	
 
 	# Delete a Movie
-	url(r'^mymovies/(?P<idn>\d+)/delete/$', Movie_Delete.as_view(), name='movie_delete'),
+	url(r'^mymovies/(?P<pk>\d+)/delete/$', Movie_Delete.as_view(), name='movie_delete'),
 
 
 	# Edit a Movie

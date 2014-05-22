@@ -89,11 +89,11 @@ def actor_detail_view(request):
 
 
 class Movie_Delete(LoginRequiredMixin, DeleteView):
+
+#class Movie_Delete(DeleteView):
 	model = Movie
 	template_name = 'delete_form.html' #Formulario para rellenar los campos de movie
 	success_url = '/movieslist' #Pagina elemento borrado correctamente
-#afegir variable -->SEGUR K VOLS ELIMINAR AQUESTA PELICULA?
-
 
 
  #************************************************

@@ -1,9 +1,15 @@
+{% extends "mainpage.html"%}
+
+{% block content %}
+
 <form method="post" action="">
         {% csrf_token %}
         <table>
             {{ form.as_table }}
         </table>
-	<h2> Do you really want to delete this object?</h3>
+	<h2> Do you really want to delete this object?</h2>
         <input type="submit" value="Yes"/>
         <input type="button" onclick="history.back()" value="No"/>
 </form>
+
+{% endblock %}
