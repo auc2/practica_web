@@ -13,7 +13,14 @@
         	<h1>My<span class="lightblue">Movies</span></h1>
           <h2>The library of your favorite movies</h2>
         </div>   
-        
+
+{% if user.username %}
+<font color ="White">
+<h3>Welcome back <font color ="yellow">{{user.username}}</font> how are you?</h3>
+</font>
+<br> 
+{% endif %}
+
         <div id="menu">
         	<ul>
      			<li class="active"><a href="http://127.0.0.1:8000/">Homepage</a></li>
@@ -22,7 +29,7 @@
 					<li><a href="/actorslist">Actors</a></li>
 					<li><a href="/directorslist">Directors</a></li>
 					<li><a href="/producerslist">Producers</a></li>
-					<li><a href="/reviewslist">Reviews</a></li>
+					<!--<li><a href="/reviewslist">Reviews</a></li>-->
 
 
           </ul>

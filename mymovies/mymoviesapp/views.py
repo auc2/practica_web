@@ -216,7 +216,8 @@ def movieslist(request):
 	variables = Context({
 				'titlehead': 'MoviesPage',
 				'pagetitle': 'Your Movies',
-				'pelicules_list' : Movie.objects.all()
+				'pelicules_list' : Movie.objects.all(),
+				'user': request.user
 		})
 	output = template.render(variables)
 	return HttpResponse(output)
