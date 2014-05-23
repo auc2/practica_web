@@ -21,7 +21,6 @@ class Actor(models.Model):
 	def __unicode__(self):
 		return self.name
 
-
 	def get_absolute_url(self):
 		return reverse('actor_detail', kwargs={'idn': self.pk})
 
@@ -32,21 +31,28 @@ class Director(models.Model):
 	sex = models.CharField(max_length=10)
 	born = models.DateTimeField()
 	bibliography = models.TextField(max_length=200)
+	user = models.ForeignKey(User)
 
 	def __unicode__(self):
 		return self.name
 
-	
+	def get_absolute_url(self):
+		return reverse('director_detail', kwargs={'idn': self.pk})
+
 	
 	
 class Producer(models.Model):
-	name_entity = models.TextField(max_length=40)
+	name_entity = models.CharField(max_length=40)
 	foundation_year = models.DateTimeField()
 	num_members = models.IntegerField()
+	user = models.ForeignKey(User)
 	
 	def __unicode__(self):
 		return self.name_entity
 
+
+	def get_absolute_url(self):
+		return reverse('producer_detail', kwargs={'idn': self.pk})
 
 
 
@@ -70,7 +76,6 @@ class Movie(models.Model):
 	def get_absolute_url(self):
 		return reverse('movie_detail', kwargs={'idn': self.pk})
 
-		#return reverse('movie_detail', kwargs={'pk': self.pk})
 
 class Review(models.Model):
 	note = models.FloatField(validators = [MinValueValidator(0.0), MaxValueValidator(10)])

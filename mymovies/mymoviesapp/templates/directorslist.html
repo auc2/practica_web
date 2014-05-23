@@ -9,7 +9,22 @@
 				<li>
 					<a href="/directorslist/{{director.id}}">{{director.name}}</a>
 				</li>
+				{% if user.id == director.user.id %}
+				
+					<a href="/directors/{{director.id}}/delete"><button type="button">Delete Director</button></a>
+					<a href="/directors/{{director.id}}/edit"><button type="button">Edit Director</button></a>
+					<br><br>
+				{% endif %}
 				{% endfor %}
 				</ol>
+				<br>
+				<p><b>Do you want add a new director?</b></p>
+				<br>
+				{% if user.id %}
+				<a href="/director/create"><button type="button">Add Director</button></a>
+				
+     				 {% else %}
+					<p>You must <a href="/login/">sign in</a> to add new directors</p>
+    				  {% endif %}
 
 {% endblock %}

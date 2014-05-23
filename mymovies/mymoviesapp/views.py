@@ -38,15 +38,14 @@ class CheckIsOwnerMixin(object):
 class MovieCreate(LoginRequiredMixin, CreateView):
 	model = Movie
 	template_name = 'form.html' #Formulario para rellenar los campos de movie
-	form_class = MovieForm
+	form_class = MovieForm #Metodo de forms.py
 
 	def form_valid(self, form):
 		form.instance.user = self.request.user
 		return super(MovieCreate, self).form_valid(form)
 
 
-#class ActorCreate(LoginRequiredMixin, CreateView):
-class ActorCreate(CreateView):
+class ActorCreate(LoginRequiredMixin, CreateView):
 	model = Actor
 	template_name = 'form.html' #Formulario para rellenar los campos de actor
 	form_class = ActorForm
@@ -54,6 +53,30 @@ class ActorCreate(CreateView):
 	def form_valid(self, form):
 		form.instance.user = self.request.user
 		return super(ActorCreate, self).form_valid(form)
+
+
+
+class DirectorCreate(LoginRequiredMixin, CreateView):
+	model = Director
+	template_name = 'form.html'
+	form_class = DirectorForm
+
+	def form_valid(self, form):
+		form.instance.user = self.request.user
+		return super(DirectorCreate, self).form_valid(form)
+
+
+class ProducerCreate(LoginRequiredMixin, CreateView):
+	model = Producer
+	template_name = 'form.html'
+	form_class = ProducerForm
+
+	def form_valid(self, form):
+		form.instance.user = self.request.user
+		return super(ProducerCreate, self).form_valid(form)
+
+
+
 
 
 def movie_detail_view(request):
@@ -83,14 +106,42 @@ def actor_detail_view(request):
 
 	})
 
-	#return general(request, template, variables)
+	output = template.render(variables)
+	return HttpResponse(output)
+ 
+
+def director_detail_view(request):
+
+	template = get_template('director_detail.html')
+
+	variables = Context({
+		'titlehead': 'DirectorsPage',
+		'directors_list' : Director.objects.all(),
+		'user': request.user
+
+	})
+
+	output = template.render(variables)
+	return HttpResponse(output)
+
+
+def producer_detail_view(request):
+
+	template = get_template('producer_detail.html')
+
+	variables = Context({
+		'titlehead': 'ProducersPage',
+		'producers_list' : Producer.objects.all(),
+		'user': request.user
+
+	})
+
 	output = template.render(variables)
 	return HttpResponse(output)
  
 
 
 class Movie_Delete(LoginRequiredMixin, DeleteView):
-#class Movie_Delete(DeleteView):
 	model = Movie
 	template_name = 'delete_form.html' #Formulario para rellenar los campos de movie
 	success_url = '/movieslist' #Pagina elemento borrado correctamente
@@ -101,6 +152,22 @@ class Actor_Delete(LoginRequiredMixin, DeleteView):
 	model = Actor
 	template_name = 'delete_form.html'
 	success_url = '/actorslist' 
+
+
+
+class Director_Delete(LoginRequiredMixin, DeleteView):
+	model = Director
+	template_name = 'delete_form.html'
+	success_url = '/directorslist' 
+
+
+
+class Producer_Delete(LoginRequiredMixin, DeleteView):
+	model = Producer
+	template_name = 'delete_form.html'
+	success_url = '/producerslist' 
+
+
 
 
  #************************************************
@@ -200,7 +267,8 @@ def directorslist(request):
 	variables = Context({
 				'titlehead': 'DirectorPage',
 				'pagetitle': 'Directors',
-				'directors_list' : Director.objects.all()
+				'directors_list' : Director.objects.all(),
+				'user': request.user
 		})
 	output = template.render(variables)
 	return HttpResponse(output)
@@ -222,7 +290,8 @@ def producerslist(request):
 	variables = Context({
 				'titlehead': 'ProducerPage',
 				'pagetitle': 'Producers',
-				'producers_list' : Producer.objects.all()
+				'producers_list' : Producer.objects.all(),
+				'user': request.user
 		})
 	output = template.render(variables)
 	return HttpResponse(output)

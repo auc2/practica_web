@@ -13,6 +13,19 @@ class ActorForm(ModelForm):
         exclude = ('user')
 
 
+class DirectorForm(ModelForm):
+    class Meta:
+        model = Director
+        exclude = ('user')
+
+
+class ProducerForm(ModelForm):
+    class Meta:
+        model = Producer
+        exclude = ('user')
+
+
+
 class ReviewForm(ModelForm):
     class Meta:
         model = Review

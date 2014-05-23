@@ -9,7 +9,23 @@
 				<li>
 					<a href="/producerslist/{{producer.id}}">{{producer.name_entity}}</a>
 				</li>
+				{% if user.id == producer.user.id %}
+				
+					<a href="/producers/{{producer.id}}/delete"><button type="button">Delete Producer</button></a>
+					<a href="/producers/{{producer.id}}/edit"><button type="button">Edit Producer</button></a>
+					<br><br>
+				{% endif %}
 				{% endfor %}
 				</ol>
+				<br>
+				<p><b>Do you want add a new Producer?</b></p>
+				<br>
+
+				{% if user.id %}
+				<a href="/producer/create"><button type="button">Add Producer</button></a>
+				
+     				{% else %}
+					<p>You must <a href="/login/">sign in</a> to add new producer</p>
+    				{% endif %}
 
 {% endblock %}
