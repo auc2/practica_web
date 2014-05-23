@@ -11,7 +11,7 @@
 					<p><b>Genere: </b> {{pelicula.genere}}</p>	
 					<p><b>Cast: </b></p>
 					<ol>
-					{% for actor in actors_list %}
+					{% for actor in actors %}
 					<li>
 					<a href="/actorslist/{{actor.id}}">{{actor.name}}</a>
 					</li>			

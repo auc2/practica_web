@@ -55,6 +55,15 @@ class Producer(models.Model):
 		return reverse('producer_detail', kwargs={'idn': self.pk})
 
 
+class Genere(models.Model):
+	tipus = (('comedy','comedy'),('action','action'),('drama','drama'),('terror','terror'),
+        ('fantasy','fantasy'),('thriller','thriller'),('Aventura','Aventura'),('ScienceFiction','ScienceFiction'),
+	('Western','Western'),('Neo-noir','Neo-noir'))
+	genere = models.CharField(max_length=50,choices=tipus,unique=True)
+
+	def __unicode__(self):
+		return self.genere
+
 
 class Movie(models.Model):
 	title = models.CharField(max_length=70)
@@ -63,11 +72,7 @@ class Movie(models.Model):
 	producer = models.ForeignKey(Producer)
 	cast = models.ManyToManyField(Actor)
 	argument = models.TextField(max_length=200)
-	tipus = (('comedy','comedy'),('action','action'),('drama','drama'),('terror','terror'),
-        ('fantasy','fantasy'),('thriller','thriller'),('Aventura','Aventura'),('ScienceFiction','ScienceFiction'),
-	('Western','Western'),('Neo-noir','Neo-noir'))
-	genere = models.CharField(max_length=50,choices=tipus,unique=True)
-	#user = models.ForeignKey(User, default=get_default_user) # POSSIBLE ERROR
+	genere = models.ForeignKey(Genere)
 	user = models.ForeignKey(User)
 
 	def __unicode__(self):
@@ -75,6 +80,7 @@ class Movie(models.Model):
 
 	def get_absolute_url(self):
 		return reverse('movie_detail', kwargs={'idn': self.pk})
+
 
 
 class Review(models.Model):
