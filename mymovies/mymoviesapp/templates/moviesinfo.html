@@ -1,9 +1,17 @@
 {% extends "mainpage.html"%}
+<!--{% load static %}-->
+{% block title %}{{pelicula.title}}{% endblock %}
+
 
 {% block content %}
-			
-				<h1>{{ pelicula.title }}</h1>
-			<br>
+
+	<span vocab="http://schema.org/" typeof="Movie">
+
+		<h1>
+		<span property="name">{{ pelicula.title }}</span>
+		</h1>
+		<br>
+
 					<p><b>Release: </b> {{pelicula.release}}</p>				
 					<p><b>Director: </b> <a href="/directorslist/{{pelicula.director.id}}">{{pelicula.director}}</a></p
 					<p><b>Producer: </b> <a href="/producerslist/{{pelicula.producer.id}}">{{pelicula.producer}}</a></p>
@@ -17,6 +25,55 @@
 					</li>			
 					{% endfor %}
 					</ol>
+
+<br>
+<h3>Reviews</h3>
+	{% if reviews %}
+		<span rel="aggregateRating">
+		    <p typeof="AggregateRating">
+			<br>
+			    <b>Global rate: {{mitja}}</b>
+			    <span property="ratingValue">{{movie.averageRating|stringformat:".1f"}} </span>
+			    {% with reviews|length as reviewCount %}
+			    (<span property="reviewCount">{{reviewCount}}</span>{{reviewCount|pluralize}})
+			    {% endwith %}
+		    </p>	
+		</span>	
+<br>
+		   <ul rel="review">
+		   {% for review in reviews %}
+		    <li typeof="Review">
+			    <p>User creator review: <b>{{user}}</b></p>
+			      <p rel="reviewRating" typeof="Rating">
+			      <span property="worstRating" content="1"></span>
+			      <span property="ratingValue"><b>Rate: </b> {{ review.rating }}</span> star{{ review.rating|pluralize }}
+			      <span property="bestRating" content="5"></span>
+			      <br><p property="description"><b>Comment: </b> {{review.comment }}</p>
+<br>
+		    </li>
+		   {% endfor %}
+		   </ul>
+	{% endif %}
+	</span>
+
+	<!-- AÑADIR CRITICAS 
+	{% if user.id %}
+	{% if canAddReview == 0 %}
+	<h3>Add Review</h3>
+	<form action="{% url 'review_create' movie.id %}" method="post">
+	    {% csrf_token %}
+	     Message: <br/><textarea name="comment" id="comment" rows="4"></textarea>
+	    <p>Rating:</p>
+	    <p>
+	    {% for rate in RATING_CHOICES %}
+		<input type="radio" name="rating" id="rating{{ forloop.counter }}" value="{{ rate.1 }}" />
+		<label for="choice{{ forloop.counter }}">{{ rate.1 }} star{{ rate.0|pluralize }}</label><br />
+	    {% endfor %}
+	    </p>
+	    <input type="submit" value="Review" />
+	</form>
+	{% endif %}
+	{% endif %}-->
 
 
 {% endblock %}

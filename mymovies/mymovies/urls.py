@@ -2,6 +2,9 @@ from django.conf.urls import patterns, include, url
 from mymoviesapp.views import *
 from django.views.generic import UpdateView
 
+from mymoviesapp.models import *
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
@@ -110,6 +113,12 @@ urlpatterns = patterns('',
 	# Edit an Producer
 	url(r'^producers/(?P<pk>\d+)/edit/$', UpdateView.as_view(model = Producer, template_name = 'edit_form.html',
 	form_class = ProducerForm), name='producer_edit'),
+
+
+	#Create reviews
+	url(r'^movie/(?P<pk>\d+)/reviews/create$', 'mymoviesapp.views.review', name='review_create'),
+
+
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),

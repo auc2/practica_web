@@ -84,12 +84,20 @@ class Movie(models.Model):
 
 
 class Review(models.Model):
-	note = models.FloatField(validators = [MinValueValidator(0.0), MaxValueValidator(10)])
-	commentary = models.TextField(max_length=200)
-	movie =  models.ForeignKey(Movie)
-	user = models.ForeignKey(User, default=get_default_user)
+	#note = models.FloatField(validators = [MinValueValidator(0.0), MaxValueValidator(10)])
+	#commentary = models.TextField(max_length=200)
+	#movie =  models.ForeignKey(Movie)
+	#user = models.ForeignKey(User, default=get_default_user)
 
-	def __unicode__(self):
-		return self.movie.title
+	RATING_CHOICES = ((1,'1'),(2,'2'),(3,'3'),(4,'4'),(5,'5'))
+	rating = models.PositiveSmallIntegerField('Ratings (stars)', blank=False, default=3, choices=RATING_CHOICES)
+	comment = models.TextField(blank=True, null=True)
+	user = models.ForeignKey(User)
+
+
+
+
+class MovieReview(Review):
+    Movie = models.ForeignKey(Movie)
 
 

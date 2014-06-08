@@ -2,15 +2,13 @@
 
 from django.http import HttpResponse, Http404
 
-from django.template import Context
+from django.template import Context, RequestContext
 from django.template.loader import get_template
 from django.contrib.auth.models import User
 from django.shortcuts import render_to_response
 
 from mymoviesapp.models import *
-
 from forms import *
-
 
 from django.contrib.auth.decorators import login_required
 from django.core import urlresolvers
@@ -226,14 +224,46 @@ def movieslist(request):
 def moviesinfo(request, idn):
 	try:
 		movi = Movie.objects.get(id = idn)
+		reviews = MovieReview.objects.all().filter(Movie=idn)
+		RATING_CHOICES = MovieReview.RATING_CHOICES
+		mitja=0.0
+		id=request.user.id
+		canAddReview=0		
+		if(len(reviews)!=0):
+			for review in reviews:
+				mitja=mitja+review.rating
+				if(id==review.user.id):
+					canAddReview=1
+			mitja=mitja/(len(reviews))
+
+	
 	except Movie.DoesNotExist:
 		raise Http404
 	return render_to_response(
 			'moviesinfo.html',
 			{
 				'pelicula': movi,
-				'actors':movi.cast.all()
-			})			
+				'actors':movi.cast.all(),
+
+				'reviews': reviews,
+				'user': request.user,
+				'RATING_CHOICES': RATING_CHOICES,
+				'mitja': mitja,
+				'canAddReview':canAddReview
+			},context_instance=RequestContext(request))
+
+
+def review(request, pk):
+	movie = get_object_or_404(Movie, id=pk)
+	review = MovieReview(
+		rating = request.POST['rating'],
+		comment = request.POST['comment'],
+		user = request.user,
+		Movie = movie)
+	review.save()
+	return HttpResponseRedirect(urlresolvers.reverse('moviesinfo', args=(movie.id,)))
+
+
 
 
 
