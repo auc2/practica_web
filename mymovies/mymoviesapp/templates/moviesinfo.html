@@ -8,15 +8,15 @@
 	<span vocab="http://schema.org/" typeof="Movie">
 
 		<h1>
-		<span property="name">{{ pelicula.title }}</span>
+		<span property="name">{{ movie.title }}</span>
 		</h1>
 		<br>
 
-					<p><b>Release: </b> {{pelicula.release}}</p>				
-					<p><b>Director: </b> <a href="/directorslist/{{pelicula.director.id}}">{{pelicula.director}}</a></p
-					<p><b>Producer: </b> <a href="/producerslist/{{pelicula.producer.id}}">{{pelicula.producer}}</a></p>
-					<p><b>Argument: </b> {{pelicula.argument}}</p>		
-					<p><b>Genere: </b> {{pelicula.genere}}</p>	
+					<p><b>Release: </b> {{movie.release}}</p>				
+					<p><b>Director: </b> <a href="/directorslist/{{pelicula.director.id}}">{{movie.director}}</a></p
+					<p><b>Producer: </b> <a href="/producerslist/{{pelicula.producer.id}}">{{movie.producer}}</a></p>
+					<p><b>Argument: </b> {{movie.argument}}</p>		
+					<p><b>Genere: </b> {{movie.genere}}</p>	
 					<p><b>Cast: </b></p>
 					<ol>
 					{% for actor in actors %}
@@ -28,22 +28,22 @@
 
 <br>
 <h3>Reviews</h3>
-	{% if reviews %}
+{% if movie.moviereview_set.all|length > 0 %}
 		<span rel="aggregateRating">
 		    <p typeof="AggregateRating">
 			<br>
-			    <b>Global rate: {{mitja}}</b>
+			    <b>Global rate: </b>
 			    <span property="ratingValue">{{movie.averageRating|stringformat:".1f"}} </span>
-			    {% with reviews|length as reviewCount %}
+			    {% with movie.moviereview_set.all|length as reviewCount %}
 			    (<span property="reviewCount">{{reviewCount}}</span>{{reviewCount|pluralize}})
 			    {% endwith %}
 		    </p>	
 		</span>	
 <br>
 		   <ul rel="review">
-		   {% for review in reviews %}
+    {% for review in movie.moviereview_set.all %}
 		    <li typeof="Review">
-			    <p>User creator review: <b>{{user}}</b></p>
+			    <p>User creator review: <b>{{review.user}}</b></p>
 			      <p rel="reviewRating" typeof="Rating">
 			      <span property="worstRating" content="1"></span>
 			      <span property="ratingValue"><b>Rate: </b> {{ review.rating }}</span> star{{ review.rating|pluralize }}
@@ -53,12 +53,9 @@
 		    </li>
 		   {% endfor %}
 		   </ul>
-	{% endif %}
 	</span>
+	{% endif %}
 
-	<!-- AÑADIR CRITICAS 
-	{% if user.id %}
-	{% if canAddReview == 0 %}
 	<h3>Add Review</h3>
 	<form action="{% url 'review_create' movie.id %}" method="post">
 	    {% csrf_token %}
@@ -72,8 +69,6 @@
 	    </p>
 	    <input type="submit" value="Review" />
 	</form>
-	{% endif %}
-	{% endif %}-->
 
 
 {% endblock %}

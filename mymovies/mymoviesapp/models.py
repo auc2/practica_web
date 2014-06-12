@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.core.urlresolvers import reverse
 from django.db import models
-
+from datetime import date
 
 
 def get_default_user():
@@ -10,6 +10,7 @@ def get_default_user():
 
 
 # Create your models here.
+
 
 class Actor(models.Model):
 	name = models.CharField(max_length=40)
@@ -55,6 +56,8 @@ class Producer(models.Model):
 		return reverse('producer_detail', kwargs={'idn': self.pk})
 
 
+
+
 class Genere(models.Model):
 	tipus = (('comedy','comedy'),('action','action'),('drama','drama'),('terror','terror'),
         ('fantasy','fantasy'),('thriller','thriller'),('Aventura','Aventura'),('ScienceFiction','ScienceFiction'),
@@ -78,16 +81,25 @@ class Movie(models.Model):
 	def __unicode__(self):
 		return self.title
 
+	#def get_absolute_url(self):
+	#	return reverse('movie_detail', kwargs={'idn': self.pk})
+
 	def get_absolute_url(self):
-		return reverse('movie_detail', kwargs={'idn': self.pk})
+		return reverse('movie_details', kwargs={'idn': self.pk})
+
+
+	def averageRating(self):
+		ratingSum = 0.0
+		for review in self.moviereview_set.all():
+		    ratingSum += review.rating
+		reviewCount = self.moviereview_set.count()
+		return ratingSum / reviewCount
+
 
 
 
 class Review(models.Model):
 	#note = models.FloatField(validators = [MinValueValidator(0.0), MaxValueValidator(10)])
-	#commentary = models.TextField(max_length=200)
-	#movie =  models.ForeignKey(Movie)
-	#user = models.ForeignKey(User, default=get_default_user)
 
 	RATING_CHOICES = ((1,'1'),(2,'2'),(3,'3'),(4,'4'),(5,'5'))
 	rating = models.PositiveSmallIntegerField('Ratings (stars)', blank=False, default=3, choices=RATING_CHOICES)

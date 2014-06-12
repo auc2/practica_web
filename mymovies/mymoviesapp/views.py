@@ -40,6 +40,7 @@ class MovieCreate(LoginRequiredMixin, CreateView):
 
 	def form_valid(self, form):
 		form.instance.user = self.request.user
+                #form.instance.Movie = Movie.objects.get(id=self.kwargs['idn'])
 		return super(MovieCreate, self).form_valid(form)
 
 
@@ -221,47 +222,43 @@ def movieslist(request):
 	return HttpResponse(output)
 
 
-def moviesinfo(request, idn):
-	try:
-		movi = Movie.objects.get(id = idn)
-		reviews = MovieReview.objects.all().filter(Movie=idn)
-		RATING_CHOICES = MovieReview.RATING_CHOICES
-		mitja=0.0
-		id=request.user.id
-		canAddReview=0		
-		if(len(reviews)!=0):
-			for review in reviews:
-				mitja=mitja+review.rating
-				if(id==review.user.id):
-					canAddReview=1
-			mitja=mitja/(len(reviews))
-
-	
-	except Movie.DoesNotExist:
-		raise Http404
-	return render_to_response(
-			'moviesinfo.html',
-			{
-				'pelicula': movi,
-				'actors':movi.cast.all(),
-
-				'reviews': reviews,
-				'user': request.user,
-				'RATING_CHOICES': RATING_CHOICES,
-				'mitja': mitja,
-				'canAddReview':canAddReview
-			},context_instance=RequestContext(request))
 
 
+
+
+#----------------------------------------------------------------------------------------
+@login_required()
 def review(request, pk):
 	movie = get_object_or_404(Movie, id=pk)
-	review = MovieReview(
+	new_review = MovieReview(
 		rating = request.POST['rating'],
 		comment = request.POST['comment'],
 		user = request.user,
 		Movie = movie)
-	review.save()
-	return HttpResponseRedirect(urlresolvers.reverse('moviesinfo', args=(movie.id,)))
+	new_review.save()
+	return HttpResponseRedirect(urlresolvers.reverse('movie_details', args=(movie.id,)))
+
+
+class MovieDetail(DetailView):
+    model = Movie
+    template_name = 'moviesinfo.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(MovieDetail, self).get_context_data(**kwargs)
+        context['RATING_CHOICES'] = MovieReview.RATING_CHOICES
+        return context
+
+
+#----------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
 
 
 
@@ -340,27 +337,27 @@ def producersinfo(request, idn):
 			})			
 	
 
-def reviewslist(request):
-	template = get_template('reviewslist.html')
-	variables = Context({
-				'titlehead': 'ReviewsPage',
-				'pagetitle': 'Reviews',
-				'reviews_list' : Review.objects.all()
-		})
-	output = template.render(variables)
-	return HttpResponse(output)
+#def reviewslist(request):
+#	template = get_template('reviewslist.html')
+#	variables = Context({
+#				'titlehead': 'ReviewsPage',
+#				'pagetitle': 'Reviews',
+#				'reviews_list' : Review.objects.all()
+#		})
+#	output = template.render(variables)
+#	return HttpResponse(output)
 
 
-def reviewsinfo(request, idn):
-	try:
-		direct = Review.objects.get(id = idn)
-	except Review.DoesNotExist:
-		raise Http404
-	return render_to_response(
-			'reviewsinfo.html',
-			{
-				'review': direct,
-			})			
+#def reviewsinfo(request, idn):
+#	try:
+#		direct = Review.objects.get(id = idn)
+#	except Review.DoesNotExist:
+#		raise Http404
+#	return render_to_response(
+#			'reviewsinfo.html',
+#			{
+#				'review': direct,
+#			})			
 	
 
 

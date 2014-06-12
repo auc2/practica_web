@@ -13,6 +13,7 @@ class ActorForm(ModelForm):
         exclude = ('user')
 
 
+
 class DirectorForm(ModelForm):
     class Meta:
         model = Director

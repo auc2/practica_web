@@ -23,7 +23,7 @@ urlpatterns = patterns('',
 	url(r'^logout/$','django.contrib.auth.views.logout'),
 	
 	url(r'^movieslist/$', movieslist),
-	url(r'^movieslist/(?P<idn>\d+)/$', moviesinfo),
+	#url(r'^movieslist/(?P<idn>\d+)/$', moviesinfo),
 
  	url(r'^mymovieslist/$', mymovieslist), #Una vez registrado te muestra tus peliculas 
  
@@ -37,8 +37,9 @@ urlpatterns = patterns('',
 	url(r'^producerslist/$', producerslist),
 	url(r'^producerslist/(?P<idn>\d+)/$', producersinfo),
 
-	url(r'^reviewslist/$', reviewslist),
-	url(r'^reviewslist/(?P<idn>\d+)/$', reviewsinfo),
+	#NOT USED
+	#url(r'^reviewslist/$', reviewslist),
+	#url(r'^reviewslist/(?P<idn>\d+)/$', reviewsinfo),
 
 
 	# Create a movie: 
@@ -117,6 +118,10 @@ urlpatterns = patterns('',
 
 	#Create reviews
 	url(r'^movie/(?P<pk>\d+)/reviews/create$', 'mymoviesapp.views.review', name='review_create'),
+	
+	url(r'^movielist/(?P<pk>\d+)/$',
+        MovieDetail.as_view(),
+        name='movie_details'),
 
 
 

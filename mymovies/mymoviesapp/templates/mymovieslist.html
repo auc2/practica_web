@@ -12,7 +12,7 @@
 			{% for pelicula in pelicules_list %}
 				{% if user.id == pelicula.user.id %}
 				<li>
-					<a href="/movieslist/{{pelicula.id}}"><b>{{pelicula.title}}</b></a>
+					<a href="/movielist/{{pelicula.id}}"><b>{{pelicula.title}}</b></a>
 				</li>
 				<a href="/mymovies/{{pelicula.id}}/delete"><button type="button">Delete Movie</button></a>
 				<a href="/mymovies/{{pelicula.id}}/edit"><button type="button">Edit Movie</button></a>
