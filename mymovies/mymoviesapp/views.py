@@ -214,7 +214,7 @@ def movieslist(request):
 	template = get_template('movieslist.html')
 	variables = Context({
 				'titlehead': 'MoviesPage',
-				'pagetitle': 'Your Movies',
+				'pagetitle': 'Movies',
 				'pelicules_list' : Movie.objects.all(),
 				'user': request.user
 		})
