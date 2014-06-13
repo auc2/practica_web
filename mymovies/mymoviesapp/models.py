@@ -20,8 +20,9 @@ class Actor(models.Model):
 	name = models.CharField(max_length=40)
 	sex = models.ForeignKey(Sex)	
 	born = models.DateField()
-	filmography = models.TextField(max_length=200)
+	filmography = models.TextField(max_length=200) # models.ManyToManyField(Movie)
 	#user = get_default_user()
+
 
 	def __unicode__(self):
 		return self.name
@@ -35,7 +36,7 @@ class Director(models.Model):
 	name = models.CharField(max_length=40)	
 	sex = models.ForeignKey(Sex)
 	born = models.DateField()
-	filmography = models.TextField(max_length=200)
+	filmography = models.TextField(max_length=200) # models.ManyToManyField(Movie)
 	#user = get_default_user()
 
 	def __unicode__(self):

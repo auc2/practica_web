@@ -37,6 +37,7 @@ class MovieCreate(LoginRequiredMixin, CreateView):
 	model = Movie
 	template_name = 'form.html' 
 	form_class = MovieForm 
+	success_url = '/mymovieslist'
 
 	def form_valid(self, form):
 		form.instance.user = self.request.user
@@ -48,6 +49,7 @@ class ActorCreate(LoginRequiredMixin, CreateView):
 	model = Actor
 	template_name = 'form.html' 
 	form_class = ActorForm
+	success_url = '/actorslist'
 
 	def form_valid(self, form):
 		form.instance.user = self.request.user
@@ -58,6 +60,7 @@ class DirectorCreate(LoginRequiredMixin, CreateView):
 	model = Director
 	template_name = 'form.html'
 	form_class = DirectorForm
+	success_url = '/directorslist'
 
 	def form_valid(self, form):
 		form.instance.user = self.request.user
@@ -68,6 +71,7 @@ class ProducerCreate(LoginRequiredMixin, CreateView):
 	model = Producer
 	template_name = 'form.html'
 	form_class = ProducerForm
+	success_url = '/producerslist'
 
 	def form_valid(self, form):
 		form.instance.user = self.request.user
@@ -119,7 +123,7 @@ class MovieEdit(LoginRequiredMixin, CheckIsOwnerMixin, UpdateView):
 	model = Movie
 	template_name = 'edit_form.html'
 	form_class = MovieForm 
-	success_url = '/movieslist'  # necesari? 
+	success_url = '/mymovieslist'   
 
 
 class ActorEdit(LoginRequiredMixin, UpdateView):
@@ -148,7 +152,7 @@ class ProducerEdit(LoginRequiredMixin, UpdateView):
 class MovieDelete(LoginRequiredMixin, DeleteView):
 	model = Movie
 	template_name = 'delete_form.html' 
-	success_url = '/movieslist' 
+	success_url = '/mymovieslist' 
 
 
 class ActorDelete(LoginRequiredMixin, DeleteView):
@@ -216,7 +220,7 @@ def actorslist(request):
 	template = get_template('actorslist.html')
 	variables = Context({
 				'titlehead': 'ActorsPage',
-				'pagetitle': 'The stars of yours favorites movies',
+				'pagetitle': 'Actors',
 				'actors_list' : Actor.objects.all(),
 				'user': request.user
 		})

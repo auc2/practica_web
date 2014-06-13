@@ -3,7 +3,7 @@
 {% block content %}
 
 				<h2 class="title">{{pagetitle}}</h2><br/>
-				<p>Here you can add actors for the web</p>
+				
 				<br>
 				<ol>
 				{% for actor in actors_list %}
@@ -11,15 +11,15 @@
 					<a href="/actorslist/{{actor.id}}">{{actor.name}}</a>
 
 				</li>
-				{% if user.id == actor.user.id %}
+				
 				
 					<a href="/actors/{{actor.id}}/delete"><button type="button">Delete Actor</button></a>
 					<a href="/actors/{{actor.id}}/edit"><button type="button">Edit Actor</button></a>
 					<br><br>
-				{% endif %}
+				
 				{% endfor %}
 				</ol>
-								
+				<br>				
 				{% if user.id %}
 					<a href="/actors/create"><button type="button">Add Actor</button></a>				
 			    {% else %}

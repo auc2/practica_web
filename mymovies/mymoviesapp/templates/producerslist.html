@@ -2,22 +2,23 @@
 
 {% block content %}
 				<h2 class="title">{{pagetitle}}</h2><br/>
-				<p>Here you can add producers for the web</p>
+				
 				<br>
 				<ol>
 				{% for producer in producers_list %}
 				<li>
 					<a href="/producerslist/{{producer.id}}">{{producer.name_entity}}</a>
 				</li>
-				{% if user.id == producer.user.id %}
+				
 				
 					<a href="/producers/{{producer.id}}/delete"><button type="button">Delete Producer</button></a>
 					<a href="/producers/{{producer.id}}/edit"><button type="button">Edit Producer</button></a>
 					<br><br>
-				{% endif %}
+				
 				{% endfor %}
 				</ol>
 				
+				<br>
 				{% if user.id %}
 					<a href="/producers/create"><button type="button">Add Producer</button></a>				
  				{% else %}

@@ -13,16 +13,17 @@
 		<br>
 
 					<p><b>Release: </b> {{movie.release}}</p>				
-					<p><b>Director: </b> <a href="/directorslist/{{pelicula.director.id}}">{{movie.director}}</a></p
+					<p><b>Director: </b> <a href="/directorslist/{{pelicula.director.id}}">{{movie.director}}</a></p>
 					<p><b>Producer: </b> <a href="/producerslist/{{pelicula.producer.id}}">{{movie.producer}}</a></p>
 					<p><b>Argument: </b> {{movie.argument}}</p>		
 					<p><b>Genre: </b> {{movie.genre}}</p>	
 					<p><b>Cast: </b></p>
 					<ol>
 					{% for actor in actors %}
-					<li>
-					<a href="/actorslist/{{actor.id}}">{{actor.name}}</a>
-					</li>			
+					<!-- if actor in movie.cast --> 
+						<li>
+						<a href="/actors/{{actor.id}}">{{actor.name}}</a>
+						</li>			
 					{% endfor %}
 					</ol>
 
@@ -43,7 +44,7 @@
 		   <ul rel="review">
     {% for review in movie.moviereview_set.all %}
 		    <li typeof="Review">
-			    <p>User creator review: <b>{{review.user}}</b></p>
+			    <p>Created by: <b>{{review.user}}</b> on {{review.date}}</p>
 			      <p rel="reviewRating" typeof="Rating">
 			      <span property="worstRating" content="1"></span>
 			      <span property="ratingValue"><b>Rate: </b> {{ review.rating }}</span> star{{ review.rating|pluralize }}

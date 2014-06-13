@@ -27,15 +27,11 @@ urlpatterns = patterns('',
 	url(r'^producerslist/$', producerslist),
 	
 
-	# Details of an object
-	#url(r'^movieslist/(?P<idn>\d+)/$', moviesinfo),
+	# Details of an object	
 	url(r'^movieslist/(?P<pk>\d+)/$', MovieDetail.as_view(), name='movie_details'),
-	url(r'^mymovieslist/(?P<pk>\d+)/$', MovieDetail.as_view(), name='movie_details2'),
-	#url(r'^actorslist/(?P<idn>\d+)/$', actorsinfo),
-	url(r'^actorslist/(?P<pk>\d+)/$', ActorDetail.as_view(), name='actor_detail'),
-	#url(r'^directorslist/(?P<idn>\d+)/$', directorsinfo),
-	url(r'^directorslist/(?P<pk>\d+)/$', DirectorDetail.as_view(), name='director_detail'),
-	#url(r'^producerslist/(?P<idn>\d+)/$', producersinfo),
+	url(r'^mymovieslist/(?P<pk>\d+)/$', MovieDetail.as_view(), name='movie_details2'),	
+	url(r'^actorslist/(?P<pk>\d+)/$', ActorDetail.as_view(), name='actor_detail'),	
+	url(r'^directorslist/(?P<pk>\d+)/$', DirectorDetail.as_view(), name='director_detail'),	
 	url(r'^producerslist/(?P<pk>\d+)/$', ProducerDetail.as_view(), name='producer_detail'),
 
 	# Creates
@@ -53,7 +49,7 @@ urlpatterns = patterns('',
 	url(r'^directors/(?P<pk>\d+)/edit/$', DirectorEdit.as_view(), name='director_edit'),
 	url(r'^producers/(?P<pk>\d+)/edit/$', ProducerEdit.as_view(), name='producer_edit'),
 
-	# un altra forma: 
+	# alternativa: 
 	#url(r'^actors/(?P<pk>\d+)/edit/$', UpdateView.as_view(model = Actor, template_name = 'edit_form.html',
 	#form_class = ActorForm), name='actor_edit'),
 	#url(r'^directors/(?P<pk>\d+)/edit/$', UpdateView.as_view(model = Director, template_name = 'edit_form.html',

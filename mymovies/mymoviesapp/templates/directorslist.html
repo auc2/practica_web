@@ -2,21 +2,22 @@
 
 {% block content %}
 				<h2 class="title">{{pagetitle}}</h2><br/>
-				<p>Here you can add directors for the web</p>
+				
 				<br>
 				<ol>
 				{% for director in directors_list %}
 				<li>
 					<a href="/directorslist/{{director.id}}">{{director.name}}</a>
 				</li>
-				{% if user.id == director.user.id %}
+				
 				
 					<a href="/directors/{{director.id}}/delete"><button type="button">Delete Director</button></a>
 					<a href="/directors/{{director.id}}/edit"><button type="button">Edit Director</button></a>
 					<br><br>
-				{% endif %}
+				
 				{% endfor %}
-				</ol>				
+				</ol>	
+				<br>			
 				{% if user.id %}
 					<a href="/directors/create"><button type="button">Add Director</button></a>				
 				{% else %}
