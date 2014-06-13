@@ -145,6 +145,12 @@ class Movie_Delete(LoginRequiredMixin, DeleteView):
 	template_name = 'delete_form.html' #Formulario para rellenar los campos de movie
 	success_url = '/movieslist' #Pagina elemento borrado correctamente
 
+class Movie_Edit(LoginRequiredMixin, UpdateView):
+
+	model = Movie
+	template_name = 'edit_form.html'
+	form_class = MovieForm
+	success_url = '/movieslist'
 
 
 class Actor_Delete(LoginRequiredMixin, DeleteView):
