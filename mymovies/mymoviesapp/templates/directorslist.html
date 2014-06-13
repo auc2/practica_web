@@ -16,15 +16,11 @@
 					<br><br>
 				{% endif %}
 				{% endfor %}
-				</ol>
-				<br>
-				<p><b>Do you want add a new director?</b></p>
-				<br>
+				</ol>				
 				{% if user.id %}
-				<a href="/director/create"><button type="button">Add Director</button></a>
-				
-     				 {% else %}
+					<a href="/directors/create"><button type="button">Add Director</button></a>				
+				{% else %}
 					<p>You must <a href="/login/">sign in</a> to add new directors</p>
-    				  {% endif %}
+			    {% endif %}
 
 {% endblock %}

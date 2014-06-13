@@ -35,8 +35,8 @@ class CheckIsOwnerMixin(object):
 
 class MovieCreate(LoginRequiredMixin, CreateView):
 	model = Movie
-	template_name = 'form.html' #Formulario para rellenar los campos de movie
-	form_class = MovieForm #Metodo de forms.py
+	template_name = 'form.html' 
+	form_class = MovieForm 
 
 	def form_valid(self, form):
 		form.instance.user = self.request.user
@@ -46,13 +46,12 @@ class MovieCreate(LoginRequiredMixin, CreateView):
 
 class ActorCreate(LoginRequiredMixin, CreateView):
 	model = Actor
-	template_name = 'form.html' #Formulario para rellenar los campos de actor
+	template_name = 'form.html' 
 	form_class = ActorForm
 
 	def form_valid(self, form):
 		form.instance.user = self.request.user
 		return super(ActorCreate, self).form_valid(form)
-
 
 
 class DirectorCreate(LoginRequiredMixin, CreateView):
@@ -77,97 +76,94 @@ class ProducerCreate(LoginRequiredMixin, CreateView):
 
 
 
+class MovieDetail(DetailView):
+    model = Movie
+    template_name = 'moviesinfo.html'
 
-def movie_detail_view(request):
+    def get_context_data(self, **kwargs):
+        context = super(MovieDetail, self).get_context_data(**kwargs)
+        context['RATING_CHOICES'] = MovieReview.RATING_CHOICES
+        return context
+
+
+class ActorDetail(DetailView):
+	model = Actor
+	template_name = 'actorsinfo.html'
+
+	def get_context_data(self, **kwargs):
+		context = super(ActorDetail, self).get_context_data(**kwargs)
+		return context
 	
-	template = get_template('movie_detail.html')
 
-	variables = Context({
-				'titlehead': 'MoviesPage',
-				'pagetitle': 'Your Movies',
-				'pelicules_list' : Movie.objects.all(),
-				'user': request.user
-		})
+class DirectorDetail(DetailView):
+	model = Director
+	template_name = 'directorsinfo.html'
 
-	output = template.render(variables)
-	return HttpResponse(output)
+	def get_context_data(self, **kwargs):
+		context = super(DirectorDetail, self).get_context_data(**kwargs)
+		return context
 
 
+class ProducerDetail(DetailView):
+	model = Producer
+	template_name = 'producersinfo.html'
 
-def actor_detail_view(request):
-
-	template = get_template('actor_detail.html')
-
-	variables = Context({
-		'titlehead': 'ActorsPage',
-		'actors_list' : Actor.objects.all(),
-		'user': request.user
-
-	})
-
-	output = template.render(variables)
-	return HttpResponse(output)
- 
-
-def director_detail_view(request):
-
-	template = get_template('director_detail.html')
-
-	variables = Context({
-		'titlehead': 'DirectorsPage',
-		'directors_list' : Director.objects.all(),
-		'user': request.user
-
-	})
-
-	output = template.render(variables)
-	return HttpResponse(output)
+	def get_context_data(self, **kwargs):
+		context = super(ProducerDetail, self).get_context_data(**kwargs)
+		return context
 
 
-def producer_detail_view(request):
-
-	template = get_template('producer_detail.html')
-
-	variables = Context({
-		'titlehead': 'ProducersPage',
-		'producers_list' : Producer.objects.all(),
-		'user': request.user
-
-	})
-
-	output = template.render(variables)
-	return HttpResponse(output)
- 
 
 
-class Movie_Delete(LoginRequiredMixin, DeleteView):
-	model = Movie
-	template_name = 'delete_form.html' #Formulario para rellenar los campos de movie
-	success_url = '/movieslist' #Pagina elemento borrado correctamente
-
-class Movie_Edit(LoginRequiredMixin, UpdateView):
-
+class MovieEdit(LoginRequiredMixin, CheckIsOwnerMixin, UpdateView):
 	model = Movie
 	template_name = 'edit_form.html'
-	form_class = MovieForm
-	success_url = '/movieslist'
+	form_class = MovieForm 
+	success_url = '/movieslist'  # necesari? 
 
 
-class Actor_Delete(LoginRequiredMixin, DeleteView):
+class ActorEdit(LoginRequiredMixin, UpdateView):
+	model = Actor
+	template_name = 'edit_form.html'
+	form_class = ActorForm
+	success_url = '/actorslist'
+
+
+class DirectorEdit(LoginRequiredMixin, UpdateView):
+	model = Director
+	template_name = 'edit_form.html'
+	form_class = DirectorForm
+	success_url = '/directorslist'
+
+
+class ProducerEdit(LoginRequiredMixin, UpdateView):
+	model = Producer
+	template_name = 'edit_form.html'
+	form_class = ProducerForm
+	success_url = '/producerslist'
+
+
+
+
+class MovieDelete(LoginRequiredMixin, DeleteView):
+	model = Movie
+	template_name = 'delete_form.html' 
+	success_url = '/movieslist' 
+
+
+class ActorDelete(LoginRequiredMixin, DeleteView):
 	model = Actor
 	template_name = 'delete_form.html'
-	success_url = '/actorslist' 
+	success_url = '/actorslist'
 
 
-
-class Director_Delete(LoginRequiredMixin, DeleteView):
+class DirectorDelete(LoginRequiredMixin, DeleteView):
 	model = Director
 	template_name = 'delete_form.html'
 	success_url = '/directorslist' 
 
 
-
-class Producer_Delete(LoginRequiredMixin, DeleteView):
+class ProducerDelete(LoginRequiredMixin, DeleteView):
 	model = Producer
 	template_name = 'delete_form.html'
 	success_url = '/producerslist' 
@@ -175,21 +171,7 @@ class Producer_Delete(LoginRequiredMixin, DeleteView):
 
 
 
- #************************************************
-def userpage(request, username):
-	try:
-		user = User.objects.get(username=username)
-	except:
-		raise Http40408('User not found.')
-
-	template = get_template('userpage.html')
-	variables = Context({
-		'username': username
-	})
-	output = template.render(variables)
-	return HttpResponse(output)
-
-
+#************************************************
 def mainpage(request):
 	template = get_template('mainpage.html')
 	variables = Context({
@@ -201,6 +183,7 @@ def mainpage(request):
 
 	output = template.render(variables)
 	return HttpResponse(output)
+
 
 def mymovieslist(request):
 	#Obtener las peliculas del usuario.
@@ -217,6 +200,7 @@ def mymovieslist(request):
 
 
 def movieslist(request):
+	#Las peliculas de todos los usuarios
 	template = get_template('movieslist.html')
 	variables = Context({
 				'titlehead': 'MoviesPage',
@@ -228,7 +212,40 @@ def movieslist(request):
 	return HttpResponse(output)
 
 
+def actorslist(request):
+	template = get_template('actorslist.html')
+	variables = Context({
+				'titlehead': 'ActorsPage',
+				'pagetitle': 'The stars of yours favorites movies',
+				'actors_list' : Actor.objects.all(),
+				'user': request.user
+		})
+	output = template.render(variables)
+	return HttpResponse(output)
 
+
+def directorslist(request):
+	template = get_template('directorslist.html')
+	variables = Context({
+				'titlehead': 'DirectorPage',
+				'pagetitle': 'Directors',
+				'directors_list' : Director.objects.all(),
+				'user': request.user
+		})
+	output = template.render(variables)
+	return HttpResponse(output)
+	
+
+def producerslist(request):
+	template = get_template('producerslist.html')
+	variables = Context({
+				'titlehead': 'ProducerPage',
+				'pagetitle': 'Producers',
+				'producers_list' : Producer.objects.all(),
+				'user': request.user
+		})
+	output = template.render(variables)
+	return HttpResponse(output)
 
 
 
@@ -244,127 +261,6 @@ def review(request, pk):
 	new_review.save()
 	return HttpResponseRedirect(urlresolvers.reverse('movie_details', args=(movie.id,)))
 
-
-class MovieDetail(DetailView):
-    model = Movie
-    template_name = 'moviesinfo.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(MovieDetail, self).get_context_data(**kwargs)
-        context['RATING_CHOICES'] = MovieReview.RATING_CHOICES
-        return context
-
-
-#----------------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-def actorslist(request):
-	template = get_template('actorslist.html')
-	variables = Context({
-				'titlehead': 'ActorsPage',
-				'pagetitle': 'The stars of yours favorites movies',
-				'actors_list' : Actor.objects.all(),
-				'user': request.user
-		})
-	output = template.render(variables)
-	return HttpResponse(output)
-
-
-
-def actorsinfo(request, idn):
-	try:
-		acto = Actor.objects.get(id = idn)
-	except Actor.DoesNotExist:
-		raise Http404
-	return render_to_response(
-			'actorsinfo.html',
-			{
-				'actor': acto,
-			})			
-
-
-
-def directorslist(request):
-	template = get_template('directorslist.html')
-	variables = Context({
-				'titlehead': 'DirectorPage',
-				'pagetitle': 'Directors',
-				'directors_list' : Director.objects.all(),
-				'user': request.user
-		})
-	output = template.render(variables)
-	return HttpResponse(output)
-
-
-def directorsinfo(request, idn):
-	try:
-		direct = Director.objects.get(id = idn)
-	except Director.DoesNotExist:
-		raise Http404
-	return render_to_response(
-			'directorsinfo.html',
-			{
-				'director': direct,
-			})		
-
-def producerslist(request):
-	template = get_template('producerslist.html')
-	variables = Context({
-				'titlehead': 'ProducerPage',
-				'pagetitle': 'Producers',
-				'producers_list' : Producer.objects.all(),
-				'user': request.user
-		})
-	output = template.render(variables)
-	return HttpResponse(output)
-
-
-def producersinfo(request, idn):
-	try:
-		direct = Producer.objects.get(id = idn)
-	except Producer.DoesNotExist:
-		raise Http404
-	return render_to_response(
-			'producersinfo.html',
-			{
-				'producer': direct,
-			})			
-	
-
-#def reviewslist(request):
-#	template = get_template('reviewslist.html')
-#	variables = Context({
-#				'titlehead': 'ReviewsPage',
-#				'pagetitle': 'Reviews',
-#				'reviews_list' : Review.objects.all()
-#		})
-#	output = template.render(variables)
-#	return HttpResponse(output)
-
-
-#def reviewsinfo(request, idn):
-#	try:
-#		direct = Review.objects.get(id = idn)
-#	except Review.DoesNotExist:
-#		raise Http404
-#	return render_to_response(
-#			'reviewsinfo.html',
-#			{
-#				'review': direct,
-#			})			
-	
 
 
 

@@ -10,24 +10,24 @@ class MovieForm(ModelForm):
 class ActorForm(ModelForm):
     class Meta:
         model = Actor
-        exclude = ('user')
+        
 
 
 
 class DirectorForm(ModelForm):
     class Meta:
         model = Director
-        exclude = ('user')
+        
 
 
 class ProducerForm(ModelForm):
     class Meta:
         model = Producer
-        exclude = ('user')
+        
 
 
 
 class ReviewForm(ModelForm):
     class Meta:
         model = Review
-        exclude = ('user', 'date',)
+        exclude = ('user', 'date')

@@ -2,35 +2,35 @@
 
 {% block content %}
 
-  {% if user.username %}
+  	{% if user.username %}
       
 				<h2 class="title">{{pagetitle}}</h2><br/>
 
 				<p>Here you can add your favorite movies in your collection</p>
 				<br>
 				<ol>
-			{% for pelicula in pelicules_list %}
-				{% if user.id == pelicula.user.id %}
-				<li>
-					<a href="/movielist/{{pelicula.id}}"><b>{{pelicula.title}}</b></a>
-				</li>
-				<a href="/mymovies/{{pelicula.id}}/delete"><button type="button">Delete Movie</button></a>
-				<a href="/mymovies/{{pelicula.id}}/edit"><button type="button">Edit Movie</button></a>
-				<br><br>
-				{% endif %}
-			{% endfor %}
+				{% for pelicula in pelicules_list %}
+					{% if user.id == pelicula.user.id %}
+						<li>
+							<a href="/mymovieslist/{{pelicula.id}}"><b>{{pelicula.title}}</b></a>
+						</li>
+						<a href="/mymovies/{{pelicula.id}}/delete"><button type="button">Delete Movie</button></a>
+						<a href="/mymovies/{{pelicula.id}}/edit"><button type="button">Edit Movie</button></a>
+						<br><br>
+					{% endif %}
+				{% endfor %}
 				</ol>
 			     <p><b>To add a new movie, make sure you have already added the directos, producers and cast</p>
 				<br>
-			    {% if user %}
-			        <a href="/mymovies/create"><button type="button">Add Movie</button></a>
-			    {% endif %}
+			    
+			    <a href="/mymovies/create"><button type="button">Add Movie</button></a>
+			    
 
 
 
-      {% else %}
-        <h2>Not logged user</h2>
-        <p>You must <a href="/login/">sign in</a> to use this site</p>
-      {% endif %}
+	{% else %}
+	    <h2>Not logged user</h2>
+	    <p>You must <a href="/login/">sign in</a> to use this site</p>
+	{% endif %}
 
 {% endblock %}

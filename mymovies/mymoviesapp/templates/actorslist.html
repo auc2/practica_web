@@ -6,7 +6,7 @@
 				<p>Here you can add actors for the web</p>
 				<br>
 				<ol>
-			{% for actor in actors_list %}
+				{% for actor in actors_list %}
 				<li>
 					<a href="/actorslist/{{actor.id}}">{{actor.name}}</a>
 
@@ -17,16 +17,15 @@
 					<a href="/actors/{{actor.id}}/edit"><button type="button">Edit Actor</button></a>
 					<br><br>
 				{% endif %}
-			{% endfor %}
+				{% endfor %}
 				</ol>
-				<br>
-				<p><b>Do you want add a new actor?</b></p>
-				<br>
+								
 				{% if user.id %}
-				<a href="/actor/create"><button type="button">Add Actor</button></a>
-				
-     				 {% else %}
+					<a href="/actors/create"><button type="button">Add Actor</button></a>				
+			    {% else %}
 					<p>You must <a href="/login/">sign in</a> to add new actors</p>
-    				  {% endif %}
+			  	{% endif %}
+			  	
+
 
 {% endblock %}

@@ -9,15 +9,19 @@ def get_default_user():
     return User.objects.get(pk=1)
 
 
-# Create your models here.
+class Sex(models.Model):
+	sex_type = (('male','male'), ('female','female'))
+	sex = models.CharField(max_length=50,choices=sex_type,unique=True)
 
+	def __unicode__(self):
+		return self.sex
 
 class Actor(models.Model):
 	name = models.CharField(max_length=40)
-	sex = models.CharField(max_length=10)
-	born = models.DateTimeField()
-	bibliography = models.TextField(max_length=200)
-	user = models.ForeignKey(User)
+	sex = models.ForeignKey(Sex)	
+	born = models.DateField()
+	filmography = models.TextField(max_length=200)
+	#user = get_default_user()
 
 	def __unicode__(self):
 		return self.name
@@ -28,11 +32,11 @@ class Actor(models.Model):
 
 
 class Director(models.Model):
-	name = models.CharField(max_length=40)
-	sex = models.CharField(max_length=10)
-	born = models.DateTimeField()
-	bibliography = models.TextField(max_length=200)
-	user = models.ForeignKey(User)
+	name = models.CharField(max_length=40)	
+	sex = models.ForeignKey(Sex)
+	born = models.DateField()
+	filmography = models.TextField(max_length=200)
+	#user = get_default_user()
 
 	def __unicode__(self):
 		return self.name
@@ -44,9 +48,9 @@ class Director(models.Model):
 	
 class Producer(models.Model):
 	name_entity = models.CharField(max_length=40)
-	foundation_year = models.DateTimeField()
+	foundation_year = models.DateField()
 	num_members = models.IntegerField()
-	user = models.ForeignKey(User)
+	#user = get_default_user()
 	
 	def __unicode__(self):
 		return self.name_entity
@@ -58,31 +62,29 @@ class Producer(models.Model):
 
 
 
-class Genere(models.Model):
+class Genre(models.Model):
 	tipus = (('comedy','comedy'),('action','action'),('drama','drama'),('terror','terror'),
         ('fantasy','fantasy'),('thriller','thriller'),('Aventura','Aventura'),('ScienceFiction','ScienceFiction'),
 	('Western','Western'),('Neo-noir','Neo-noir'))
-	genere = models.CharField(max_length=50,choices=tipus,unique=True)
+	genre = models.CharField(max_length=50,choices=tipus,unique=True)
 
 	def __unicode__(self):
-		return self.genere
+		return self.genre
 
 
 class Movie(models.Model):
 	title = models.CharField(max_length=70)
-	release = models.DateTimeField()
+	release = models.DateField()
 	director = models.ForeignKey(Director)
 	producer = models.ForeignKey(Producer)
 	cast = models.ManyToManyField(Actor)
 	argument = models.TextField(max_length=200)
-	genere = models.ForeignKey(Genere)
+	genre = models.ForeignKey(Genre)
 	user = models.ForeignKey(User)
 
 	def __unicode__(self):
 		return self.title
-
-	#def get_absolute_url(self):
-	#	return reverse('movie_detail', kwargs={'idn': self.pk})
+	
 
 	def get_absolute_url(self):
 		return reverse('movie_details', kwargs={'idn': self.pk})
@@ -98,14 +100,12 @@ class Movie(models.Model):
 
 
 
-class Review(models.Model):
-	#note = models.FloatField(validators = [MinValueValidator(0.0), MaxValueValidator(10)])
-
+class Review(models.Model):	
 	RATING_CHOICES = ((1,'1'),(2,'2'),(3,'3'),(4,'4'),(5,'5'))
 	rating = models.PositiveSmallIntegerField('Ratings (stars)', blank=False, default=3, choices=RATING_CHOICES)
 	comment = models.TextField(blank=True, null=True)
 	user = models.ForeignKey(User)
-
+	date = models.DateField(default=date.today)
 
 
 

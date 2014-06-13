@@ -17,15 +17,11 @@
 				{% endif %}
 				{% endfor %}
 				</ol>
-				<br>
-				<p><b>Do you want add a new Producer?</b></p>
-				<br>
-
-				{% if user.id %}
-				<a href="/producer/create"><button type="button">Add Producer</button></a>
 				
-     				{% else %}
+				{% if user.id %}
+					<a href="/producers/create"><button type="button">Add Producer</button></a>				
+ 				{% else %}
 					<p>You must <a href="/login/">sign in</a> to add new producer</p>
-    				{% endif %}
+				{% endif %}
 
 {% endblock %}
