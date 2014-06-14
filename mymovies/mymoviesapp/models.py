@@ -21,7 +21,7 @@ class Actor(models.Model):
 	sex = models.ForeignKey(Sex)	
 	born = models.DateField()
 	filmography = models.TextField(max_length=200) # models.ManyToManyField(Movie)
-	#user = get_default_user()
+	user = models.ForeignKey(User)
 
 
 	def __unicode__(self):
@@ -37,7 +37,7 @@ class Director(models.Model):
 	sex = models.ForeignKey(Sex)
 	born = models.DateField()
 	filmography = models.TextField(max_length=200) # models.ManyToManyField(Movie)
-	#user = get_default_user()
+	user = models.ForeignKey(User)
 
 	def __unicode__(self):
 		return self.name
@@ -51,7 +51,7 @@ class Producer(models.Model):
 	name_entity = models.CharField(max_length=40)
 	foundation_year = models.DateField()
 	num_members = models.IntegerField()
-	#user = get_default_user()
+	user = models.ForeignKey(User)
 	
 	def __unicode__(self):
 		return self.name_entity
